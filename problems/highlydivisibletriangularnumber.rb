@@ -11,9 +11,13 @@
 # We can see that 28 is the first triangle number to have over five divisors.
 # What is the value of the first triangle number to have over five hundred divisors?
 
+require 'mathn'
+
 class Integer
   def factors
-    (1..self).select { |i| (self%i).zero? }
+    number_of_factors = 1
+    self.prime_division.each { |i| number_of_factors *= (i[1] + 1) }
+    number_of_factors
   end
 end
 
@@ -26,10 +30,10 @@ def get_factors(x)
   while number_of_factors <= x
      triangle_number += natural_number 
      natural_number += 1
-     number_of_factors = triangle_number.factors.length
+     number_of_factors = triangle_number.factors
   end
   p triangle_number
 end
 
 
-get_factors(200)
+get_factors(500)
